@@ -4,10 +4,14 @@ import 'reactflow/dist/style.css';
 
 import { Square } from './components/nodes/Square';
 import { useCallback } from 'react';
+import DefaultEdge from './components/edges/DefaultEdge';
 
 const NODE_TYPES = {
   square: Square,
+}
 
+const EDGE_TYPES = {
+  default: DefaultEdge,
 }
 
 const INITIAL_NODES = [
@@ -48,12 +52,16 @@ export function App() {
     <div className='w-screen h-screen'>
       <ReactFlow
         nodeTypes={NODE_TYPES}
+        edgeTypes={EDGE_TYPES}
         nodes={nodes}
-        connectionMode={ConnectionMode.Loose}
         edges={edges}
         onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
         onNodesChange={onNodesChange}
+        onConnect={onConnect}
+        connectionMode={ConnectionMode.Loose}
+        defaultEdgeOptions={{
+          type: 'default'
+        }}
       >
         <Background 
           gap={12}
