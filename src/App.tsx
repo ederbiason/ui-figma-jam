@@ -1,6 +1,7 @@
 import ReactFlow, { addEdge, Background, Connection, ConnectionMode, Controls, Node, useEdgesState, useNodesState } from 'reactflow';
 import { zinc } from 'tailwindcss/colors'
 import 'reactflow/dist/style.css';
+import * as Toolbar from '@radix-ui/react-toolbar';
 
 import { Square } from './components/nodes/Square';
 import { useCallback } from 'react';
@@ -18,9 +19,9 @@ const INITIAL_NODES = [
   {
     id: crypto.randomUUID(),
     type: 'square',
-    position: { 
-      x: 200, 
-      y: 400 
+    position: {
+      x: 200,
+      y: 400
     },
     data: {
 
@@ -30,15 +31,15 @@ const INITIAL_NODES = [
   {
     id: crypto.randomUUID(),
     type: 'square',
-    position: { 
-      x: 1000, 
-      y: 400 
+    position: {
+      x: 1000,
+      y: 400
     },
     data: {
 
     }
   },
-] satisfies Node[]
+]satisfies Node[]
 
 export function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState([])
@@ -47,6 +48,23 @@ export function App() {
   const onConnect = useCallback((connection: Connection) => {
     return setEdges(edges => addEdge(connection, edges))
   }, [])
+
+  function addSquareNode() {
+    setNodes(nodes => [
+      ...nodes,
+      {
+        id: crypto.randomUUID(),
+        type: 'square',
+        position: {
+          x: 750,
+          y: 350
+        },
+        data: {
+
+        }
+      }
+    ])
+  }
 
   return (
     <div className='w-screen h-screen'>
@@ -63,7 +81,7 @@ export function App() {
           type: 'default'
         }}
       >
-        <Background 
+        <Background
           gap={12}
           size={2}
           color={zinc[200]}
@@ -71,6 +89,13 @@ export function App() {
 
         <Controls />
       </ReactFlow>
+
+      <Toolbar.Root className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-lg border border-zinc-300 px-8 h-20 w-96 overflow-hidden">
+        <Toolbar.Button
+          className='w-32 h-32 bg-violet-500 mt-6 rounded transition-transform hover:-translate-y-3'
+          onClick={addSquareNode}
+        />
+      </Toolbar.Root>
     </div>
   )
 }
