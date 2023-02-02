@@ -1,4 +1,4 @@
-import ReactFlow, { addEdge, Background, Connection, ConnectionMode, Controls, Node, useEdgesState, useNodesState } from 'reactflow';
+import ReactFlow, { addEdge, Background, Connection, ConnectionMode, Controls, Node, Position, useEdgesState, useNodesState } from 'reactflow';
 import { zinc } from 'tailwindcss/colors'
 import 'reactflow/dist/style.css';
 import * as Toolbar from '@radix-ui/react-toolbar';
@@ -7,8 +7,14 @@ import { Square } from './components/nodes/Square';
 import { useCallback } from 'react';
 import DefaultEdge from './components/edges/DefaultEdge';
 
+import MultiSelectionToolbar from './components/MultiSelectionToobar';
+import { CustomNode } from './components/CustomNode';
+import { TooltipNode } from './components/TooltipNode';
+
 const NODE_TYPES = {
   square: Square,
+  custom: CustomNode,
+  tooltip: TooltipNode,
 }
 
 const EDGE_TYPES = {
@@ -60,7 +66,7 @@ export function App() {
           y: 350
         },
         data: {
-
+          toolbarPosition: Position.Top
         }
       }
     ])
@@ -88,6 +94,7 @@ export function App() {
         />
 
         <Controls />
+        <MultiSelectionToolbar />
       </ReactFlow>
 
       <Toolbar.Root className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-lg border border-zinc-300 px-8 h-20 w-96 overflow-hidden">
@@ -95,6 +102,7 @@ export function App() {
           className='w-32 h-32 bg-violet-500 mt-6 rounded transition-transform hover:-translate-y-3'
           onClick={addSquareNode}
         />
+
       </Toolbar.Root>
     </div>
   )
