@@ -7,14 +7,8 @@ import { Square } from './components/nodes/Square';
 import { useCallback } from 'react';
 import DefaultEdge from './components/edges/DefaultEdge';
 
-import MultiSelectionToolbar from './components/MultiSelectionToobar';
-import { CustomNode } from './components/CustomNode';
-import { TooltipNode } from './components/TooltipNode';
-
 const NODE_TYPES = {
   square: Square,
-  custom: CustomNode,
-  tooltip: TooltipNode,
 }
 
 const EDGE_TYPES = {
@@ -30,7 +24,7 @@ const INITIAL_NODES = [
       y: 400
     },
     data: {
-
+      toolbarPosition: Position.Top
     }
   },
 
@@ -41,8 +35,8 @@ const INITIAL_NODES = [
       x: 1000,
       y: 400
     },
-    data: {
-
+    data: { 
+      toolbarPosition: Position.Top
     }
   },
 ]satisfies Node[]
@@ -94,7 +88,6 @@ export function App() {
         />
 
         <Controls />
-        <MultiSelectionToolbar />
       </ReactFlow>
 
       <Toolbar.Root className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-lg border border-zinc-300 px-8 h-20 w-96 overflow-hidden">
@@ -102,7 +95,6 @@ export function App() {
           className='w-32 h-32 bg-violet-500 mt-6 rounded transition-transform hover:-translate-y-3'
           onClick={addSquareNode}
         />
-
       </Toolbar.Root>
     </div>
   )
